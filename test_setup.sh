@@ -1,12 +1,5 @@
 # This script needs to be run from benchmark-fastapi_gin_express directory
 
-echo "Setting up FastAPI"
-python3 -m venv fastapi_app/.venv
-echo "Install FastAPI and Uvicorn"
-fastapi_app/.venv/bin/pip install -r fastapi_app/requirements.txt
-echo "FastAPI setup success"
-
-echo ""
 
 echo "Setting up BlackSheep"
 python3 -m venv blacksheep_app/.venv
@@ -22,6 +15,15 @@ go mod init gin_app
 go get -u github.com/gin-gonic/gin
 cd ..
 echo "Gin setup success"
+
+echo ""
+
+echo "Setting up Fiber"
+cd fiber_app
+go mod init fiber_app
+go get -u github.com/gofiber/fiber/v3
+cd ..
+echo "Fiber setup success"
 
 echo ""
 

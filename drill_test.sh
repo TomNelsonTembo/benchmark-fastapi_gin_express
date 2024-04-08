@@ -1,41 +1,14 @@
-
-echo "-------- Starting Fastapi Server --------"
-fastapi_app/.venv/bin/python fastapi_app/app.py &
+echo "-------- Starting Fiber Server --------"
+cd fiber_app
+go run app.go &
 sleep 3
-fastapi_pid=$(ps aux | grep 'fastapi_app/.venv/bin/python fastapi_app/app.py' | grep -v grep | awk {'print $2'} | xargs)
-echo "-------- Benchmarking Fastapi --------"
-drill --benchmark fastapi_app/fastapi.yaml -q -n --stats
-echo "-------- Stoping Fastapi Server --------"
-kill $fastapi_pid
-
-sleep 3
-echo " " 
-
-echo "-------- Starting Fastapi Server with Workers --------"
-fastapi_app/.venv/bin/uvicorn app:app --port 8001 --workers 6 --no-access-log --app-dir fastapi_app &
-sleep 3
-fastapiw_pid=$(ps aux | grep 'fastapi_app/.venv/bin/uvicorn app:app --port 8001 --workers 6 --no-access-log --app-dir fastapi_app' | grep -v grep | awk {'print $2'} | xargs)
-echo "-------- Benchmarking Fastapi with Workers --------"
-drill --benchmark fastapi_app/fastapi.yaml -q -n --stats
-echo "-------- Stoping Fastapi Server --------"
-kill $fastapiw_pid
-
-sleep 3
-echo " " 
-
-
-echo "-------- Starting Fastapi Server with Gunicorn --------"
-fastapi_app/.venv/bin/gunicorn -b :8001 -w 6 -k uvicorn.workers.UvicornWorker --chdir fastapi_app app:app &
-sleep 3
-fastapig_pid=$(ps aux | grep 'fastapi_app/.venv/bin/gunicorn -b :8001 -w 6 -k uvicorn.workers.UvicornWorker --chdir fastapi_app app:app' | grep -v grep | awk {'print $2'} | xargs)
-echo "-------- Benchmarking Fastapi with Gunicorn --------"
-drill --benchmark fastapi_app/fastapi.yaml -q -n --stats
-echo "-------- Stoping Fastapi Server --------"
-kill $fastapig_pid
-
-sleep 3
-echo " " 
-
+go_fiber_pid=$(ps aux | grep '/tmp/go-build' | grep -v grep | awk {'print $2'} | xargs)
+echo "-------- Benchmarking Fiber --------"
+drill --benchmark fiber.yaml -q -n --stats
+echo "-------- Stoping Fiber Server --------"
+kill -9 $go_fiber_pid
+cd ..
+    
 echo "-------- Starting BlackSheep Server --------"
 blacksheep_app/.venv/bin/python blacksheep_app/app.py &
 sleep 3
@@ -82,6 +55,8 @@ drill --benchmark gin.yaml -q -n --stats
 echo "-------- Stoping Gin Server --------"
 kill -9 $go_pid
 cd ..
+
+
 
 sleep 3
 echo " "

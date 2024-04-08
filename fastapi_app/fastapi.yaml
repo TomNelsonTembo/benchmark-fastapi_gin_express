@@ -1,9 +1,0 @@
-concurrency: 6
-base: 'http://localhost'
-iterations: 100000
-
-plan:
-  - name: FastAPI Fetch
-    request:
-      url: 'http://localhost:8001/test/'
-

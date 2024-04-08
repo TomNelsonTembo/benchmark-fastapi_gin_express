@@ -1,4 +1,4 @@
-concurrency: 6
+concurrency: 50
 base: 'http://localhost'
 iterations: 100000
 
