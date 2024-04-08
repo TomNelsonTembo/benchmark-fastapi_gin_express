@@ -1,4 +1,4 @@
-# benchmark results fot fastapi_gin_express
+# benchmark results for fastapi_gin_express
 
 ## Test Report
 
