@@ -18,7 +18,20 @@ drill --benchmark blacksheep_app/blacksheep.yaml -q -n --stats
 echo "-------- Stoping BlackSheep Server --------"
 kill $blacksheep_pid
 
+
 sleep 3
+
+echo "-------- Starting Echo Server --------"
+cd echo_app
+go run app.go &
+sleep 3
+go_echo_pid=$(ps aux | grep '/tmp/go-build' | grep -v grep | awk {'print $2'} | xargs)
+echo "-------- Benchmarking Fiber --------"
+drill --benchmark echo.yaml -q -n --stats
+echo "-------- Stoping Fiber Server --------"
+kill -9 $go_echo_pid
+cd ..
+
 echo " " 
 
 echo "-------- Starting BlackSheep Server with Workers --------"

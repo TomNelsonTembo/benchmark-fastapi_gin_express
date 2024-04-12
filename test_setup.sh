@@ -27,6 +27,23 @@ echo "Fiber setup success"
 
 echo ""
 
+echo "Setting up echo"
+cd echo_app
+go mod init echo_app
+go get -u github.com/labstack/echo/v4
+echo "Echo setup success"
+
+echo ""
+
+echo "Setting up net/http"
+cd go.net.http_app
+go mod init net_http_app
+go get -u github.com/julienschmidt/httprouter
+cd ..
+echo "net/http setup success"
+
+echo ""
+
 echo "Setting up Express"
 cd express_app
 npm init

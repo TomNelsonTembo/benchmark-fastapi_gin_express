@@ -1,0 +1,9 @@
+concurrency: 50
+base: 'http://localhost'
+iterations: 100000
+
+plan:
+  - name: Echo Fetch
+    request:
+      url: 'http://localhost:8006/test/'
+
